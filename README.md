@@ -6,7 +6,7 @@
 
 ## Ход работы
 
-# Огонь
+### Огонь
 
 Для начала я создал docker image в файле `Dockerfile`. Он будет работать на основе образа Ubuntu с установленными пакетами libaa-bin (команда aafire) и iputils-ping (команда ping).
 
@@ -15,15 +15,15 @@ FROM ubuntu:latest
 RUN apt update && apt install -y libaa-bin iputils-ping
 ```
 
-Далее я сбилдил docker image с помощью команды `docker build . -t fireplace`. Чтобы проверить, что камин с огнем работает, я запустил контейнер `docker run -it fireplace` и прописал `aafire`. Появился огонь из символов.
+Далее я сбилдил docker image с помощью команды `sudo docker build . -t fireplace`. Чтобы проверить, что камин с огнем работает, я запустил контейнер `sudo docker run -it fireplace` и прописал `aafire`. Появился огонь из символов.
 
-# Подключение машин в сети
+### Подключение машин в сети
 
-Чтобы настроить подключение между двумя контейнерами, заранее я создал docker сеть с помощью команды `docker network create --subnet 192.168.0.0/16 mynetwork`. Далее я запустил в разных консолях два контейнера:
+Чтобы настроить подключение между двумя контейнерами, заранее я создал docker сеть с помощью команды `sudo docker network create --subnet 192.168.0.0/16 mynetwork`. Далее я запустил в разных консолях два контейнера:
 
 ```bash
-docker run --net mynetwork --ip 192.168.0.101 -it --name container1 fireplace
-docker run --net mynetwork --ip 192.168.0.102 -it --name container2 fireplace
+sudo docker run --net mynetwork --ip 192.168.0.101 -it --name container1 fireplace
+sudo docker run --net mynetwork --ip 192.168.0.102 -it --name container2 fireplace
 ```
 
 И далее нам остается только проверить подключение с помощью команды `ping`, которую мы установили в начале.
